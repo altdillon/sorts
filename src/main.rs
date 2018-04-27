@@ -54,7 +54,19 @@ fn boubleSort<T:PartialOrd+Copy+Display>(list:&mut [T])
     }
 }
 
-// add a merge sort 
+// selection sort...
+fn selectionSort<T:PartialOrd+Copy+Display>(list:&mut [T])
+{
+    let mut currentIndex = 0;
+
+    for i in 1..list.len()
+    {
+        if list[i] < list[i-1]
+        {
+            
+        }
+    }
+}
 
 fn main()
 {
@@ -64,4 +76,5 @@ fn main()
     let mut v2 = vec![45,41,32,67,89,32,67,5,4,56,98,34,21];
     boubleSort(&mut v2[0..3]); // sort the first 4 elements
     printlist(&v2);
+    selectionSort(&mut v2[4..11]);
 }
