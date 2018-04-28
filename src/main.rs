@@ -12,9 +12,9 @@ fn swap<T:Copy>(list:&mut [T],x:usize,y:usize)
 
 // prints out the list of stuff in the collection
 //
-fn printlist<T:Display>(list:&[T])
+fn printlist<T:Display>(list:&[T],msg:&str)
 {
-    println!("collection:");
+    println!("collection: {}",msg);
     for (i,item) in list.iter().enumerate()
     {
         println!("index: {} value: {}",i,item);
@@ -46,7 +46,7 @@ fn boubleSort<T:PartialOrd+Copy+Display>(list:&mut [T])
         {
             if list[i] < list[i-1]
             {
-                println!("swapping!");
+                //println!("swapping!");
                 sorted = false;
                 swap(list,i,i-1);
             }
@@ -57,24 +57,35 @@ fn boubleSort<T:PartialOrd+Copy+Display>(list:&mut [T])
 // selection sort...
 fn selectionSort<T:PartialOrd+Copy+Display>(list:&mut [T])
 {
-    let mut currentIndex = 0;
-
-    for i in 1..list.len()
+    for i in 0..list.len()
     {
-        if list[i] < list[i-1]
+        for j in (i+1)..list.len()
         {
-            
+            if list[i] > list[j]
+            {
+                swap(list,i,j);
+            }
         }
     }
 }
 
+
+
 fn main()
 {
-    let mut v1 = vec![1,2,3];
-    swap(&mut v1,0,1);
-    printlist(&v1);
-    let mut v2 = vec![45,41,32,67,89,32,67,5,4,56,98,34,21];
-    boubleSort(&mut v2[0..3]); // sort the first 4 elements
-    printlist(&v2);
-    selectionSort(&mut v2[4..11]);
+    // let mut v2 = vec![45,41,32,67,89,32,67,5,4,56,98,34,21];
+    // boubleSort(&mut v2[0..3]); // sort the first 4 elements
+    // printlist(&v2,"after bouble sort...");
+    // selectionSort(&mut v2[4..11]);
+    // printlist(&v2[4..11],"after selection sort...");
+
+    let mut data:Vec<i32> = Vec::new();
+    for i in (0..10).rev()
+    {
+        data.push(i);
+    }
+
+    printlist(&data,"before sort:");
+    selectionSort(&mut data); // make sure the pass the vector as a mutable refrence
+    printlist(&data,"after sort:");
 }
