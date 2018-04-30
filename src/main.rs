@@ -70,6 +70,25 @@ fn selectionSort<T:PartialOrd+Copy+Display>(list:&mut [T])
 }
 
 
+// function that can merge two slices in order
+fn merge<T:PartialOrd+Copy+Display+Clone>(list1:&[T],list2:&[T]) -> Vec<T>
+{
+    let mut target:Vec<T> = Vec::new();
+
+    if list1.len() == list2.len() // make sure the slices are the same length
+    {
+        let iter1 = list1.iter();
+        let iter2 = list2.iter();
+
+        loop
+        {
+            
+        }
+    }
+
+
+    target
+}
 
 fn main()
 {
