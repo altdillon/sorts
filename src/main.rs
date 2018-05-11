@@ -35,7 +35,7 @@ fn isSorted<T:PartialOrd>(list:&[T]) -> bool
 }
 
 // bouble sort is best sort
-fn boubleSort<T:PartialOrd+Copy+Display>(list:&mut [T])
+fn bouble_sort<T:PartialOrd+Copy+Display>(list:&mut [T])
 {
     let mut sorted = false;
 
@@ -55,7 +55,7 @@ fn boubleSort<T:PartialOrd+Copy+Display>(list:&mut [T])
 }
 
 // selection sort...
-fn selectionSort<T:PartialOrd+Copy+Display>(list:&mut [T])
+fn selection_sort<T:PartialOrd+Copy+Display>(list:&mut [T])
 {
     for i in 0..list.len()
     {
@@ -70,24 +70,55 @@ fn selectionSort<T:PartialOrd+Copy+Display>(list:&mut [T])
 }
 
 
-// function that can merge two slices in order
-fn merge<T:PartialOrd+Copy+Display+Clone>(list1:&[T],list2:&[T]) -> Vec<T>
+
+fn merge<T:PartialOrd+Copy+Display+Clone>(list:&mut [T],pivot:usize)
 {
-    let mut target:Vec<T> = Vec::new();
-
-    if list1.len() == list2.len() // make sure the slices are the same length
+    if isSorted(list) // assume that the input is sorted
     {
-        let iter1 = list1.iter();
-        let iter2 = list2.iter();
+        // create temp arrays
+        let left = &list[0..pivot];
+        let right = &list[pivot .. list.len()];
+        //printlist(left,"left");
+        //printlist(right,"right");
 
-        loop
-        {
-            
-        }
+        let mut index = 0;
+        let mut temp_index = 0;
+
+        let mut target = list.clone(); // we can't assing to a borrowed list, so we'll just clone it then assing to clone to the barrowed list, maybe
+        
+
+        // causes error: error[E0506]: cannot assign to `list[..]` because it is borrowed
+        // .......................................................................................
+        // //while index < list.len()
+        // while temp_index < right.len() && temp_index < left.len()
+        // {
+        //     if left[temp_index] > right[temp_index] // left bigger than right
+        //     {
+        //         list[index] = right[temp_index];
+        //         index = index + 1;
+        //         temp_index = temp_index + 1;
+        //         list[index] = left[temp_index];
+        //     }
+        //     else if left[temp_index] < right[temp_index] // right bigger than left
+        //     {
+        //         list[index] = left[temp_index];
+        //         index = index + 1;
+        //         temp_index = temp_index + 1;
+        //         list[index] = right[temp_index];
+        //     }
+        //     else // left and right equal
+        //     {
+        //         list[index] = right[temp_index];
+        //         index = index + 1;
+        //         list[index] = left[temp_index];
+        //
+        //     }
+        //
+        //     index = index + 1;
+        //     temp_index = temp_index + 1;
+        // }
+
     }
-
-
-    target
 }
 
 fn main()
@@ -105,6 +136,8 @@ fn main()
     }
 
     printlist(&data,"before sort:");
-    selectionSort(&mut data); // make sure the pass the vector as a mutable refrence
+    selection_sort(&mut data); // make sure the pass the vector as a mutable refrence
     printlist(&data,"after sort:");
+    let piv = data.len() / 2;
+    merge(&mut data,piv);
 }
